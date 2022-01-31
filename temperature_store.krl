@@ -3,5 +3,6 @@ ruleset temperature_store {
         name "Temperature Store"
         description << Ruleset for Temperature Store >>
         author "Cameron Brown"
+        version "draft"
     }
 }
