@@ -10,7 +10,7 @@ ruleset wovyn_base {
         shares lastResponse
     }
     global {
-        temperature_threshold = 65;
+        temperature_threshold = 74;
         lastResponse = function() {
             {}.put(ent:lastTimestamp, ent:lastResponse)
         }

@@ -17,7 +17,7 @@ ruleset temperature_store {
         };
 
         inrange_temperatures = function() {
-            temperatures().filter(function(v,k){threshold_violations() >< k})
+            temperatures().filter(function(v,k){not threshold_violations() >< k})
         }
     }
 
