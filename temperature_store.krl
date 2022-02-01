@@ -3,6 +3,8 @@ ruleset temperature_store {
         name "Temperature Store"
         description << Ruleset for Temperature Store >>
         author "Cameron Brown"
+        provides temperatures, threshold_violations
+        shares temperatures, threshold_violations
     }
 
     global {
@@ -13,7 +15,6 @@ ruleset temperature_store {
         threshold_violations = function() {
             ent:violations
         };
-
     }
 
     rule collect_temperatures {
