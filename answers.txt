@@ -1,7 +1,24 @@
 1. Explain how the rule collect_temperatures and the temperatures function work as an event-query API.
+    When the wovyn sensor takes a new temperature reading, the new_temperature_reading event is triggered.
+    The rule collect_temperatures is triggered by that event and it stores the temperature reading from that event
+    in persistant storage. Then, someone is able to come along later and run the temperatures function to 
+    get all the temperatures that collect_temperatures has stored in persistant storage. This follows the event-query
+    API model where queries of system state are kept separate from events that modify system state. In this example,
+    the rule collect_temperatures is part of the event that modifies the system state by storing temperatures and the
+    temperatures function is a query to get those stored temperatures.
+    
 
 2. Explain your strategy for finding temperatures that are in range.
+    Since I'm storing temperatures as a map, I use the filter() operator on it that only includes
+    the temperatures that don't exist in the threshold_violations map. I use the membership operator (><)
+    to determine if that temperature exists in threshold_violations and then use the not operator so that
+    I don't include that value.
 
 3. What happens if provides doesn't list the name of the temperatures function?
+    The temperatures function cannot be used as a module if it isn't listed under provides. It still
+    allows me to use it in the Testing tab since I've specified it in the shares list and it can still be used
+    by other rules in the ruleset.
 
 4. What happens if shares doesn't list it?
+    If shares doesn't list it, I no longer have the option to select it in the Testing tab, but the inrange_temperatures
+    function is still able to use it since it is contained in the same ruleset.
