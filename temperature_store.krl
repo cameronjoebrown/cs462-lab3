@@ -3,8 +3,8 @@ ruleset temperature_store {
         name "Temperature Store"
         description << Ruleset for Temperature Store >>
         author "Cameron Brown"
-        provides threshold_violations, inrange_temperatures
-        shares temperatures, threshold_violations, inrange_temperatures
+        provides temperatures, threshold_violations, inrange_temperatures
+        shares threshold_violations, inrange_temperatures
     }
 
     global {
