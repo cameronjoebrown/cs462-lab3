@@ -9,11 +9,16 @@ ruleset temperature_store {
 
     }
 
+
+
     rule collect_temperatures {
         select when wovyn new_temperature_reading
         pre {
-            temperature = event:attrs{"temperature"}.klog("Temperature ")
-            temperature_timestamp = event:attrs{"timestamp"}.klog("Timestamp ")
+            collected_temperature = event:attrs{"temperature"}.klog("Temperature")
+            temperature_timestamp = event:attrs{"timestamp"}.klog("Timestamp")
+        }
+        always {
+            ent:temperatures := ent:temperatures.defaultsTo({}).put(temperature_timestamp, collected_temperature)
         }
     }
 
@@ -23,15 +28,16 @@ ruleset temperature_store {
             violation_temperature = event:attrs{"temperature"}.klog("Violation Temperature")
             violation_timestamp = event:attrs{"timestamp"}.klog("Violation Timestamp")
         }
+        always {
+            ent:violation_temperatures := ent:violation_temperatures.defaultsTo({}).put(violation_timestamp, violation_temperature)
+        }
     }
 
     rule clear_temperatures {
         select when sensor reading_reset
         always {
-            clear ent:temperature
-            clear ent:temperature_timestamp
-            clear ent:violation_temperature
-            clear ent:violation_timestamp
+            clear ent:temperatures
+            clear ent:violation_temperatures
         }
     }
 }
