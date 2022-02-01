@@ -15,6 +15,10 @@ ruleset temperature_store {
         threshold_violations = function() {
             ent:violations
         };
+
+        inrange_temperatures = function() {
+            temperatures().filter(threshold_violations())
+        }
     }
 
     rule collect_temperatures {
