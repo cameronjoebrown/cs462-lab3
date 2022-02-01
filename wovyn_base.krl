@@ -35,11 +35,12 @@ ruleset wovyn_base {
         select when wovyn new_temperature_reading
         pre {
             temperature = event:attrs{"temperature"}
+            timestamp = event:attrs{"timestamp"}
         }
         fired {
             raise wovyn event "threshold_violation" attributes {
-                "temperature" : event:attrs{"genericThing"}{"data"}{"temperature"}[0]{"temperatureF"},
-                "timestamp" : time:now()
+                "temperature" : temperature,
+                "timestamp" : timestamp
             } if temperature > temperature_threshold
         }
     }
