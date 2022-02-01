@@ -14,10 +14,10 @@ ruleset temperature_store {
     }
 
     rule collect_threshold_violation  {
-        
+        select when wovyn threshold_violation
     }
 
     rule clear_temperatures {
-
+        select when sensor reading_reset
     }
 }
