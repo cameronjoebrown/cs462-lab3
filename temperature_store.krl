@@ -6,6 +6,13 @@ ruleset temperature_store {
     }
 
     global {
+        temperatures = function() {
+            ent:temps
+        };
+
+        threshold_violations = function() {
+            ent:violations
+        };
 
     }
 
