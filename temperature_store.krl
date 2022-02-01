@@ -18,7 +18,7 @@ ruleset temperature_store {
             temperature_timestamp = event:attrs{"timestamp"}.klog("Timestamp")
         }
         always {
-            ent:temperatures := ent:temperatures.defaultsTo({}).put(temperature_timestamp, collected_temperature)
+            ent:temperatures := ent:temperatures.defaultsTo({}).put(temperature_timestamp, collected_temperature).klog("Temperatures")
         }
     }
 
@@ -29,7 +29,7 @@ ruleset temperature_store {
             violation_timestamp = event:attrs{"timestamp"}.klog("Violation Timestamp")
         }
         always {
-            ent:violation_temperatures := ent:violation_temperatures.defaultsTo({}).put(violation_timestamp, violation_temperature)
+            ent:violations := ent:violations.defaultsTo({}).put(violation_timestamp, violation_temperature).klog("Violations")
         }
     }
 
@@ -37,7 +37,7 @@ ruleset temperature_store {
         select when sensor reading_reset
         always {
             clear ent:temperatures
-            clear ent:violation_temperatures
+            clear ent:violations
         }
     }
 }
